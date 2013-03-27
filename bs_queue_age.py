@@ -22,6 +22,8 @@ def do_data():
         print '%s_jobs.value %d' % (clean_tube(tube), val)
 
 def do_config():
+    bs = beanstalkc.Connection(HOST, PORT)
+    TUBES = bs.tubes()
     print "graph_title Job Age"
     print "graph_vlabel Max Age"
     print "graph_category Beanstalk"
