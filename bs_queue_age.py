@@ -6,13 +6,15 @@ import beanstalkc
 
 HOST = os.environ.get('HOST', 'localhost')
 PORT = os.environ.get('PORT', 11300)
-TUBES = os.environ.get('TUBES', 'default').split()
+# TODO: instead of writing TUBES below, append this list
+#TUBES = os.environ.get('TUBES', 'default').split()
 
 def clean_tube(tube):
     return tube.replace('.', '_')
 
 def do_data():
     bs = beanstalkc.Connection(HOST, PORT)
+    TUBES = bs.tubes()
     for tube in TUBES:
         bs.use(tube)
         j = bs.peek_ready()
